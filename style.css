@@ -1,0 +1,152 @@
+/* Ensure canvas has fixed dimensions */
+.content {
+    width: 800px; /* Adjust width as needed */
+    height: 1200px; /* Adjust height as needed */
+    margin: auto; /* Center the canvas horizontally */
+    background-color: #333;
+}
+
+
+
+
+/* Resetting default margin and padding */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling */
+body {
+    font-family: "Lucida Console", "Courier New", monospace;
+    line-height: 1.6;
+    background-image: url('Img/bodeis.jpeg');;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: "Lucida Console", "Courier New", monospace; /* Change font family */
+}
+
+
+header h1 {
+    margin-bottom: 10px;
+    font-size: 32px;
+    color: ghostwhite; /* Change header color */
+    font-family: "Baskerville Old Face", serif; /* Creative pirate-style font */
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+    color: #ffd700; /* Change hover color */
+}
+
+.content {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+    font-family: "Lucida Console", "Courier New", monospace; /* Change font family */
+    color: ghostwhite; /* Change footer color */
+}
+
+/* Responsive styling */
+@media only screen and (max-width: 600px) {
+    header {
+        padding: 10px;
+    }
+
+    .content {
+        padding: 20px 10px;
+    }
+}
+
+
+h2 {
+    font-family: "Imprint MT Shadow", serif; /* Apply Imprint MT Shadow font */
+    font-size: 36px; /* Adjust the size as needed */
+    color: black; /* Pirate-themed color */
+    text-shadow: 3px 3px 5px gray; /* Adds shadow effect */
+    text-align: center; /* Centers the text */
+    margin-top: 20px; /* Add spacing from the top */
+}
+
+
+
+.intro {
+            color: black;
+            font-family: "Baskerville Old Face", serif; /* Match font with header */
+            font-size: 18px;
+        }
+
+.intros {
+    color: gray;
+    font-family: "Baskerville Old Face", serif; /* Font set to Baskerville Old Face */      
+    font-size: 18px;
+}
+
+
+.introsy {
+    color: gray;
+    font-family: "Baskerville Old Face", serif; /* Font set to Baskerville Old Face */      
+    font-size: 18px;
+    text-align: center; /* Ensures text stays centered */
+}
+
+#startButton {
+    padding: 20px 40px; /* Increased size */
+    font-size: 24px; /* Larger font */
+    background-color: firebrick;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px; /* More rounded corners */
+    font-family: 'Pirata One', cursive;
+    font-weight: bold;
+    display: block; /* Makes the button behave like a block element */
+    margin: 20px auto; /* Centers the button horizontally */
+    text-align: center; /* Ensures text stays centered */
+}
+
+        #startButton:hover {
+            background-color: mediumseagreen;
+        }
+
+.center-image {
+        display: block;
+        margin: 0 auto;
+    }

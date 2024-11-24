@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Journey Through the Realm</title>
+    <!-- Reference to CSS file -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Team section styles */
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 20px;
+            justify-content: center;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        .team-member {
+            max-width: 400px;
+            height: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 10px;
+            width: 190px;
+            height: 200px;
+        }
+
+        .team-member h3 {
+            font-size: 1.2rem;
+            margin: 20px 0 15px;
+            color: #333;
+        }
+
+        .team-member p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Pirate Ship Advantures: Treasure Mania</h1>
+        <nav>
+            <ul>
+                <li><a href="welcome.html">Home</a></li>
+                <li><a href="team.html">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Body Content -->
+    <div class="content">
+        <h2>Meet our Team</h2>
+        <div class="team-members">
+            <div class="team-member">
+                <img src="Img/girly.png" alt="Welcome Pirate">
+                <h3>Reem Abdulla Alhebsi</h3>
+                <p>H00468765</p>
+            </div>
+            <div class="team-member">
+                <img src="Img/girl2.png" alt="Welcome Pirate">
+                <h3>Amna Ebrahim Alshehhi</h3>
+                <p>H00444858</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Pirate Ship Adventures: Treasure Mania. All rights reserved.</p>
+    </footer>
+</body>
+</html>

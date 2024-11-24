@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirate Ship Coins Game Project</title>
+    <!-- Reference to CSS file -->
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+    <!--<h1 style="color: white;">Pirate Ship Advantures: Treasure Mania</h1>-->
+     <!-- Header -->
+    <header>
+        <h1>Pirate Ship Advantures: Treasure Mania</h1>
+        <nav>
+            <ul>
+                <li><a href="welcome.html">Home</a></li>
+                <li><a href="team.html">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+<body style="background-color:black; text-align:center;">
+   
+    
+    <canvas id="gameCanvas" width="800" height="600" style="border: 1px solid black">
+    </canvas>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Pirate Ship Advantures: Treasure Mania. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        // Get canvas and context
+        var canvas = document.getElementById("gameCanvas");
+        var ctx = canvas.getContext("2d");
+        var message = document.getElementById("message");
+
+		
+		//get the animation frame depending on the browser engine
+            var requestAnimationFrame = window.requestAnimationFrame ||
+                                        window.mozRequestAnimationFrame ||
+                                        window.webkitRequestAnimationFrame ||
+                                        window.msRequestAnimationFrame;  
+        
+       
+       
+       
+        
+        alert("Welcome to Pirate Quest! Captain Blackbeard Jack has arrived at Skull Isle, the first stop on the treasure hunt. But watch out—this island is full of traps and dangers! Collect coins, avoid the pitfalls, and prove you're the toughest pirate around. Let the adventure begin!")
+		
+
+        // Game Settings
+        var coinCount = 0;
+        var neededCounts = 5;
+        var currentLevel = 1;
+        var levelTime = 23;
+        var levelOneSpeed = 2;
+        var levelTwoSpeed = 2.5;
+		var levelThreeSpeed = 3.5;
+        var levelFourSpeed = 4;
+		var levelFiveSpeed = 6;
+        var isChestOpen = false;
+
+
+        // Background
+        var bg = new Image();
+        bg.src = "Img/background1.jpeg";
+        var bgWidth = 800;
+        var bgHeight = 600;
+        var bgX = 0;
+        var bgY = 0;
+
+
+        // ship
+        var ship = new Image();
+        ship.src = "shipe.png";
+        var shipWidth = 150;
+        var shipHeight = 150;
+        var shipX = canvas.width / 2 - shipWidth / 2;
+        var shipY = canvas.height - shipHeight;
+        var shipSpeed = 7;
+    
+
+        // Game sounds
+        var collect = new Audio("sound/collect.m4a");
+        var sad = new Audio("sound/negative_beeps.mp3");
+        var losing = new Audio("sound/gameOver.mp3")
+        var level1 = new Audio("sound/level1.mp3");
+        var level2 = new Audio("sound/level2.mp3");
+        var level3 = new Audio("sound/level3.mp3");
+		var level4 = new Audio("sound/level4.mp3");
+		var level5 = new Audio("sound/level5.mp3");
+        
+
+        /* ----------------------------- START OF COINS SETTINGS ---------------------------------- */
+
+        // Load images
+        
+        var coin = new Image();
+        coin.src = "Img/coin.png";
+        var coinWidth = 100;
+        var coinHeight = 100;
+        var coinX = Math.random() * 700;
+        var coinY = -100;
+        var coinSpeed = levelOneSpeed;
+
+        var coin1 = new Image();
+        coin1.src = "Img/coin.png";
+        var coin1Width = 100;
+        var coin1Height = 100;
+        var coin1X = Math.random() * 700;
+        var coin1Y = -300;
+        var coin1Speed = levelOneSpeed;
+
+        var coin2 = new Image();
+        coin2.src = "Img/coin.png";
+        var coin2Width = 100;
+        var coin2Height = 100;
+        var coin2X = Math.random() * 700;
+        var coin2Y = -500;
+        var coin2Speed = levelOneSpeed;
+
+        var coin3 = new Image();
+        coin3.src = "Img/coin.png";
+        var coin3Width = 100;
+        var coin3Height = 100;
+        var coin3X = Math.random() * 700;
+        var coin3Y = -700;
+        var coin3Speed = levelOneSpeed;
+        
+        var coin4 = new Image();
+        coin4.src = "Img/coin.png";
+        var coin4Width = 100;
+        var coin4Height = 100;
+        var coin4X = Math.random() * 700;
+        var coin4Y = -1300;
+        var coin4Speed = levelOneSpeed;
+
+        var coin5 = new Image();
+        coin5.src = "Img/coin.png";
+        var coin5Width = 100;
+        var coin5Height = 100;
+        var coin5X = Math.random() * 700;
+        var coin5Y = -1500;
+        var coin5Speed = levelOneSpeed;
+        
+        var coin6 = new Image();
+        coin6.src = "Img/coin.png";
+        var coin6Width = 100;
+        var coin6Height = 100;
+        var coin6X = Math.random() * 700;
+        var coin6Y = -2100;
+        var coin6Speed = levelOneSpeed;
+
+        var coin7 = new Image();
+        coin7.src = "Img/coin.png";
+        var coin7Width = 100;
+        var coin7Height = 100;
+        var coin7X = Math.random() * 700;
+        var coin7Y = -1700;
+        var coin7Speed = levelOneSpeed;
+
+        var coin8 = new Image();
+        coin8.src = "Img/coin.png";
+        var coin8Width = 100;
+        var coin8Height = 100;
+        var coin8X = Math.random() * 700;
+        var coin8Y = -2300;
+        var coin8Speed = levelOneSpeed;
+        
+        var coin9 = new Image();
+        coin9.src = "Img/coin.png";
+        var coin9Width = 100;
+        var coin9Height = 100;
+        var coin9X = Math.random() * 700;
+        var coin9Y = -1900;
+        var coin9Speed = levelOneSpeed;
+		
+        var coin10 = new Image();
+        coin10.src = "Img/coin.png";
+        var coin10Width = 100;
+        var coin10Height = 100;
+        var coin10X = Math.random() * 700;
+        var coin10Y = -2500;
+        var coin10Speed = levelOneSpeed;
+		
+		var coin11 = new Image();
+        coin11.src = "Img/coin.png";
+        var coin11Width = 100;
+        var coin11Height = 100;
+        var coin11X = Math.random() * 700;
+        var coin11Y = -2700;
+        var coin11Speed = levelOneSpeed;
+        
+        var dimond = new Image();
+        dimond.src = "Img/dimond.png";
+        var dimondWidth = 100;
+        var dimondHeight = 100;
+        var dimondX = Math.random() * 700;
+        var dimondY = -2700;
+        var dimondSpeed = levelTwoSpeed;
+        
+        var dimond1 = new Image();
+        dimond1.src = "Img/dimond.png";
+        var dimond1Width = 100;
+        var dimond1Height = 100;
+        var dimond1X = Math.random() * 700;
+        var dimond1Y = -2700;
+        var dimond1Speed = levelTwoSpeed;
+        
+        var dimond2 = new Image();
+        dimond2.src = "Img/dimond.png";
+        var dimond2Width = 100;
+        var dimond2Height = 100;
+        var dimond2X = Math.random() * 700;
+        var dimond2Y = -2700;
+        var dimond2Speed = levelTwoSpeed;
+        
+        var bomb1 = new Image();
+        bomb1.src = "Img/bomb.png";
+        var bomb1Width = 90;
+        var bomb1Height = 90;
+        var bomb1X = Math.random() * 700;
+        var bomb1Y = -900;
+        var bomb1Speed = levelOneSpeed;
+
+        var bomb2 = new Image();
+        bomb2.src = "Img/bomb.png";
+        var bomb2Width = 90;
+        var bomb2Height = 90;
+        var bomb2X = Math.random() * 700;
+        var bomb2Y = -1100;
+        var bomb2Speed = levelOneSpeed;
+
+ 
+        var ironBomb = new Image();
+        ironBomb.src = "Img/ironbomb.png";
+        var ironBombWidth = 90;
+        var ironBombHeight = 90;
+        var ironBombX = Math.random() * 700;
+        var ironBombY;
+        var ironBombSpeed = levelFiveSpeed;
+
+        var ironBomb2 = new Image();
+        ironBomb2.src = "Img/ironbomb.png";
+        var ironBomb2Width = 90;
+        var ironBomb2Height = 90;
+        var ironBomb2X = Math.random() * 700;
+        var ironBomb2Y = -3000;
+        var ironBomb2Speed = levelFiveSpeed;
+        
+        // Treasure image
+        var closedTreasure = new Image();
+        closedTreasure.src = "Img/treasureClose.jpg";
+
+        
+        var openTreasure = new Image();
+        openTreasure.src = "Img/tresureOpen.jpg";
+
+        
+        /* -------------------------------- end of dragons sttings ---------------------------------- */
+
+        // Keyboard attributes
+        var leftPressed = false;
+        var rightPressed = false;
+		var upPressed = false;
+        var downPressed = false;
+        
+         let treasure = {
+             x: Math.random() * 350,
+             y: 0,
+             width: 150,
+             height: 150,
+             speed: 2, // Falling speed
+             isOpen: false, // Determines whether treasure is opened
+             visible: false, // Determines whether treasure appears (level 5 only)
+             speed: levelFiveSpeed
+         };
+        
+        let gameInterval;
+        let gameOver = false;
+
+        // Draw Screen
+        function drawScreen() {
+
+            // Background Draw
+            ctx.drawImage(bg, bgX, bgY, bgWidth, bgHeight);
+
+            // coin Draw
+            ctx.drawImage(coin, coinX, coinY, coinWidth, coinHeight);
+            ctx.drawImage(coin1, coin1X, coin1Y, coin1Width, coin1Height);
+            ctx.drawImage(coin2, coin2X, coin2Y, coin2Width, coin2Height);
+            ctx.drawImage(coin3, coin3X, coin3Y, coin3Width, coin3Height);
+            ctx.drawImage(coin4, coin4X, coin4Y, coin4Width, coin4Height);
+            ctx.drawImage(coin5, coin5X, coin5Y, coin5Width, coin5Height);
+            ctx.drawImage(coin6, coin6X, coin6Y, coin6Width, coin6Height);
+            ctx.drawImage(coin7, coin7X, coin7Y, coin7Width, coin7Height);
+            ctx.drawImage(coin8, coin8X, coin8Y, coin8Width, coin8Height);
+            ctx.drawImage(coin9, coin9X, coin9Y, coin9Width, coin9Height);
+			ctx.drawImage(coin10, coin10X, coin10Y, coin10Width, coin10Height);
+		    ctx.drawImage(coin11, coin11X, coin11Y, coin11Width, coin11Height);
+            
+            // dimond draw
+            ctx.drawImage(dimond, dimondX, dimondY, dimondWidth, dimondHeight);
+            ctx.drawImage(dimond1, dimond1X, dimond1Y, dimond1Width, dimond1Height);
+            ctx.drawImage(dimond2, dimond2X, dimond2Y, dimond2Width, dimond2Height);
+            
+            // bomb draw
+            ctx.drawImage(bomb1, bomb1X, bomb1Y, bomb1Width, bomb1Height);
+            ctx.drawImage(bomb2, bomb2X, bomb2Y, bomb2Width, bomb2Height);
+
+            // draw ship
+            ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
+           
+
+            // draw iron bomb 
+            ctx.drawImage(ironBomb, ironBombX, ironBombY, ironBombWidth, ironBombHeight);
+            ctx.drawImage(ironBomb2, ironBomb2X, ironBomb2Y, ironBomb2Width, ironBomb2Height);
+            
+            
+            // Draw the treasure in level 5 (closed or open based on its state)
+            if (currentLevel === 5 && treasure.visible) {
+                if (treasure.isOpen) {
+                    ctx.drawImage(openTreasure, treasure.x, treasure.y, treasure.width, treasure.height);
+                } else {
+                    ctx.drawImage(closedTreasure, treasure.x, treasure.y, treasure.width, treasure.height);
+                }
+            }
+            
+
+            // Draw Statistics 
+            drawStatistics();
+  
+        }
+
+
+
+        function drawStatistics() {
+            ctx.beginPath();
+            ctx.font = "bold 23px Velvetica";
+            ctx.fillStyle = "white";
+            ctx.fillText("Coins count: (" + coinCount + "/" + neededCounts + ")", 50, 50);
+            ctx.fillText("Level: " + currentLevel, 350, 50);
+            ctx.fillText("Time: " + levelTime, 600, 50);
+        }
+        
+        // Attach keydown and keyup evente of the window
+        window.addEventListener("keydown", handleKeydown);
+        window.addEventListener("keyup", handleKeyup);
+        
+        // Attach mouse and touch evente of the window
+        //canvas.addEventListener("mousedown", handleMouseDown);
+        //window.addEventListener("touchstart", handleTouchEvent);
+
+
+
+        function handleKeydown(e) {
+            // Get the key code that represents the key where the user pressed
+            var keyCode = e.keyCode;
+
+            // Check which key has been pressed
+            if (keyCode == 37) // left arrow key
+            {
+                leftPressed = true;
+                shipX = shipX - 50;
+                playAmbient();
+            }
+            else if (keyCode == 39) // right arrow key
+            {
+                rightPressed = true;
+                shipX = shipX + 50;
+                playAmbient();
+            }
+			   else if (keyCode == 38) // up arrow key
+            {
+                upPressed = true;
+                shipY = shipY - 40;
+                playAmbient();
+            }
+			   else if (keyCode == 40) // down arrow key
+            {
+                downPressed = true;
+                shipY = shipY + 40;
+                playAmbient();
+            }
+        }
+        
+        
+        
+        function playAmbient() {
+            if (currentLevel == 1) {
+                level1.play();
+            }
+        }
+        // function to handle the keyup
+        function handleKeyup(e) {
+            // Get the key code that represents the key where the user pressed
+            var keyCode = e.keyCode;
+            // Check which key has been released
+            if (keyCode == 37) { // left arrow key
+                leftPressed = false;    
+            } 
+            else if (keyCode == 39) { // right arrow key
+                rightPressed = false;    
+            }
+			  else if (keyCode == 38) { // up arrow key
+                upPressed = false;
+            }
+			  else if (keyCode == 40) { // down arrow key
+                downPressed = false;  
+            }
+        }
+        
+        
+        function handleLogic() {
+            if (rightPressed) {
+                // Only move right if ship won't exceed right canvas boundary
+                if(shipX + shipWidth < canvas.width) {
+                    shipX += shipSpeed;
+                }
+            }
+            
+            if (leftPressed) {
+                // Only move left if ship won't exceed left canvas boundary
+                if (shipX > 0) {
+                    shipX -= shipSpeed;
+                }
+            }
+            
+			if (downPressed) {
+                // Only move down if ship won't exceed bottom canvas boundary
+                if (shipY + shipHeight < canvas.height) {
+                    shipY += shipSpeed;
+                }
+            }
+            
+			  if (upPressed) {
+                  // Only move up if ship won't exceed top canvas boundary
+                  if (shipY > 0) {
+                      //shipY = canvas.width;
+                      shipY -= shipSpeed;
+                  }
+            }
+
+            coinY += coinSpeed;
+            coin1Y += coin1Speed;
+            coin2Y += coin2Speed;
+            coin3Y += coin3Speed;
+            bomb1Y += bomb1Speed;
+            coin9Y += coin9Speed;
+            coin8Y += coin8Speed;
+            coin7Y += coin7Speed;
+            coin5Y += coin5Speed;
+            coin6Y += coin6Speed;
+            bomb2Y += bomb2Speed;
+            coin4Y += coin4Speed;
+		    coin10Y += coin10Speed;
+			coin11Y += coin11Speed;
+            dimondY += dimondSpeed;
+
+
+            if(currentLevel == 5) {
+                neededCounts = 9;
+                ironBombY += ironBombSpeed;
+                ironBomb2Y += ironBombSpeed;
+            }
+
+            if (shipCountcoin()<=60) {
+                coinCount++;
+                coinX = 900;
+                coinY = 0;
+                collect.play();
+            }
+            if (shipCountcoin1()<=60) {
+                coinCount++;
+                coin1X = 900;
+                coin1Y = 0;
+                collect.play();
+            }
+            if (shipCountcoin2()<=60) {
+                coinCount++;
+                coin2X = 900;
+                collect.play();
+            }
+           if (shipCountcoin3()<=60) {
+                coinCount++;
+                coin3X = 900;
+                collect.play();
+            }
+            if (shipHitbomb1()<=60) {
+                coinCount--;
+                bomb1X = 900;
+                sad.play();
+            }
+            if (shipCountcoin8()<=60) {
+                coinCount++;
+                coin8X = 900;
+                collect.play();
+            }
+            if (shipCountcoin5()<=60) {
+                coinCount++;
+                coin5X = 900;
+                collect.play();
+            }
+            if (shipCountcoin4()<=60) {
+                coinCount++;
+                coin4X = 900;
+                collect.play();
+            }
+            if (shipHitbomb2()<=60) {
+                coinCount--;
+                bomb2X = 900;
+                sad.play();
+            }
+            if (shipCountcoin9()<=60) {
+                coinCount++
+                coin9X = 900;
+                collect.play();
+            }
+            if (shipCountcoin6()<=60) {
+                coinCount++;
+                coin6X = 900;
+                collect.play();
+            }
+            if (shipCountcoin7()<=60) {
+                coinCount++;
+                coin7X = 900;
+                collect.play();
+            }
+            
+			 if (shipCountcoin10()<=60) {
+                coinCount++;
+                coin10X = 900;
+                collect.play();
+            }
+             if (shipCountcoin11()<=60) {
+                coinCount++;
+                coin11X = 900;
+                collect.play();
+            }
+            
+            // Here where the score where the points will increase by 2 point when collect the dimond
+            if (shipCountdimond()<=60) {
+                coinCount+= 2;
+                dimondX = 900;
+                collect.play();
+            }
+            if (shipCountdimond1()<=60) {
+                coinCount+= 2;
+                dimondX = 900;
+                collect.play();
+            }
+            if (shipCountdimond2()<=60) {
+                coinCount+= 2;
+                dimondX = 900;
+                collect.play();
+            }
+        
+            if(shipHitironBomb()<=30)
+            {
+                losing.play();
+                alert("Ohh no, You have lost, try again!");
+                window.location.reload();
+                
+            }
+            if(shipHitironBomb2()<=30)
+            {
+                losing.play();
+                alert("Ohh no, You have lost, try again!");
+                window.location.reload();
+                
+
+            }
+            
+            // Check for ship collision with treasure in level 5
+            if (currentLevel === 5 && treasure.visible && !treasure.isOpen) {
+                   if (
+                       shipX < treasure.x + treasure.width &&
+                       shipX + shipWidth > treasure.x &&
+                       shipY < treasure.y + treasure.height &&
+                       shipY + shipHeight > treasure.y
+                   ) {
+                       treasure.isOpen = true;
+                       alert("Congratulations! You've opened the treasure chest and completed your pirate adventure!");
+                       setTimeout(() => window.location.reload(), 1000);
+                   }
+            }
+            
+            
+            if (currentLevel == 1 && coinCount >= 5) {
+                alert("Congratulations! You've conquered the first island and found the first treasure. Get ready for the second island—it’s filled with even tougher challenges and hidden traps!");
+                nextLevel();
+            } 
+            else if (currentLevel == 2 && coinCount >= 8) {
+                alert("Great job! You've braved the second island and uncovered more treasure. But beware, the third island is even trickier and full of surprises!");
+                nextLevel();
+            } 
+            else if (currentLevel == 3 && coinCount >= 10) {
+                alert("Impressive! The third island's treasure is yours, but the fourth island awaits with the hardest challenges yet. Stay sharp, pirate!");
+                nextLevel();
+            } 
+            else if (currentLevel == 4 && coinCount >= 8) {
+                alert("Amazing work! You've mastered the fourth island, but the final island is the most dangerous of all. Only the bravest can uncover the ultimate treasure!");
+                nextLevel();
+            } 
+            else if (currentLevel == 5 && coinCount >= 7) {
+                alert("Congratulations, pirate! You’ve conquered all the islands and claimed the legendary treasure. Your name will go down in history as the greatest pirate adventurer of all time!");
+                window.location.reload(); // Restart the game
+            }
+
+		
+            // Make treasure fall in level 5
+            if (currentLevel === 5 && treasure.visible && !treasure.isOpen) {
+                treasure.y += treasure.speed;
+                // If treasure goes off screen, game over
+                if (treasure.y > canvas.height) {
+                    alert("The treasure chest was lost to the depths! Try again!");
+                    window.location.reload();
+                }
+            }
+            
+            // failing
+            if (levelTime <= 0) {
+                if ((currentLevel == 1 && coinCount < 5) ||
+                    (currentLevel == 2 && coinCount < 8) ||
+                    (currentLevel == 3 && coinCount < 10) ||
+                    (currentLevel == 4 && coinCount < 8) ||
+                    (currentLevel == 5 && coinCount < 7)) {
+                    alert("You have lost, try again!");
+                    window.location.reload();
+                }
+            }
+			
+			
+        }
+        function nextLevel() 
+        {
+			
+			currentLevel += 1;
+            neededCounts =8;
+            levelTime = 15;
+            coinCount = 0;
+            
+            leftPressed = false;
+            rightPressed = false;
+			upPressed = false;
+			downPressed = false;
+            
+            if (currentLevel == 2) {
+                bg.src = "Img/background2.jpeg";
+                level1.pause();
+                level2.play();
+
+                coinX = Math.random() * 700;
+                coinY = -100;
+                coinSpeed = levelTwoSpeed;
+
+                coin1X = Math.random() * 700;
+                coin1Y = -200;
+                coin1Speed = levelTwoSpeed;
+
+                coin2X = Math.random() * 700;
+                coin2Y = -300;
+                coin2Speed = levelTwoSpeed;
+
+                bomb1X = Math.random() * 700;
+                bomb1Y = -400;
+                bomb1Speed = levelTwoSpeed;
+
+                dimondX = Math.random() * 700;
+                dimondY = -200;
+                dimondSpeed = levelTwoSpeed;
+                
+                coin4X = Math.random() * 700;
+                coin4Y = -500;
+                coin4Speed = levelTwoSpeed;
+
+                coin7X = Math.random() * 700;
+                coin7Y = -600;
+                coin7Speed = levelTwoSpeed;
+
+                coin9X = Math.random() * 700;
+                coin9Y = -700;
+                coin9Speed = levelTwoSpeed;
+
+                coin8X = Math.random() * 700;
+                coin8Y = -800;
+                coin8Speed = levelTwoSpeed;
+
+                coin5X = Math.random() * 700;
+                coin5Y = -900;
+                coin5Speed = levelTwoSpeed;
+
+                bomb2X = Math.random() * 700;
+                bomb2Y = -1000;
+                bomb2Speed = levelTwoSpeed;
+
+                coin6X = Math.random() * 700;
+                coin6Y = -1100;
+                coin6Speed = levelTwoSpeed;
+
+                coin3X = Math.random() * 700;
+                coin3Y = -1200;
+                coin3Speed = levelTwoSpeed;
+				
+				coin10X = Math.random() * 700;
+                coin10Y = -1300;
+                coin10Speed = levelTwoSpeed;
+				
+				coin11X = Math.random() * 700;
+                coin11Y = -1400;
+                coin11Speed = levelTwoSpeed;
+            }
+            
+			  if (currentLevel == 3) {
+                bg.src = "Img/background3.jpeg";
+                level2.pause();
+                level3.play();
+				
+				neededCounts =10;
+				levelTime = 10;
+
+				  
+                coinX = Math.random() * 700;
+                coinY = -100;
+                coinSpeed = levelThreeSpeed;
+
+                coin1X = Math.random() * 700;
+                coin1Y = -200;
+                coin1Speed = levelThreeSpeed;
+                  
+                dimondX = Math.random() * 700;
+                dimondY = -200;
+                dimondSpeed = levelTwoSpeed;
+                  
+                dimondX = Math.random() * 700;
+                dimondY = -200;
+                dimondSpeed = levelThreeSpeed;
+
+                coin2X = Math.random() * 700;
+                coin2Y = -300;
+                coin2Speed = levelThreeSpeed;
+
+                bomb1X = Math.random() * 700;
+                bomb1Y = -400;
+                bomb1Speed = levelThreeSpeed;
+
+                coin4X = Math.random() * 700;
+                coin4Y = -500;
+                coin4Speed = levelThreeSpeed;
+
+                coin7X = Math.random() * 700;
+                coin7Y = -600;
+                coin7Speed = levelThreeSpeed;
+
+                coin9X = Math.random() * 700;
+                coin9Y = -700;
+                coin9Speed = levelThreeSpeed;
+
+                coin8X = Math.random() * 700;
+                coin8Y = -800;
+                coin8Speed = levelThreeSpeed;
+
+                coin5X = Math.random() * 700;
+                coin5Y = -900;
+                coin5Speed = levelThreeSpeed;
+
+                bomb2X = Math.random() * 700;
+                bomb2Y = -1000;
+                bomb2Speed = levelThreeSpeed;
+
+                coin6X = Math.random() * 700;
+                coin6Y = -1100;
+                coin6Speed = levelThreeSpeed;
+
+                coin3X = Math.random() * 700;
+                coin3Y = -1200;
+                coin3Speed = levelThreeSpeed;
+				
+				coin3X = Math.random() * 700;
+                coin3Y = -1300;
+                coin3Speed = levelThreeSpeed;
+				
+				coin3X = Math.random() * 700;
+                coin3Y = -1400;
+                coin3Speed = levelThreeSpeed;
+				
+				coin3X = Math.random() * 700;
+                coin3Y = -1500;
+                coin3Speed = levelThreeSpeed;
+				
+				coin10X = Math.random() * 700;
+                coin10Y = -1300;
+                coin10Speed = levelThreeSpeed;
+				
+				coin11X = Math.random() * 700;
+                coin11Y = -1400;
+                coin11Speed = levelThreeSpeed;
+            }
+            
+            if (currentLevel == 4) {
+                bg.src = "Img/background4.jpeg";
+                level3.pause();
+                level4.play();
+              
+				neededCounts =12;
+				levelTime = 8;
+
+
+                coinX = Math.random() * 700;
+                coinY = -100;
+                coinSpeed = levelFourSpeed;
+
+                coin1X = Math.random() * 700;
+                coin1Y = -200;
+                coin1Speed = levelFourSpeed;
+
+                coin2X = Math.random() * 700;
+                coin2Y = -300;
+                coin2Speed = levelFourSpeed;
+
+                bomb1X = Math.random() * 700;
+                bomb1Y = -400;
+                bomb1Speed = levelFourSpeed;
+
+                coin4X = Math.random() * 700;
+                dcoin4Y = -500;
+                coin4Speed = levelFourSpeed;
+
+                coin7X = Math.random() * 700;
+                coin7Y = -600;
+                coin7Speed = levelFourSpeed;
+
+                coin9X = Math.random() * 700;
+                coin9Y = -700;
+                coin9Speed = levelFourSpeed;
+
+                coin8X = Math.random() * 700;
+                coin8Y = -800;
+                coin8Speed = levelFourSpeed;
+
+                coin5X = Math.random() * 700;
+                coin5Y = -900;
+                coin5Speed = levelFourSpeed;
+
+                bomb2X = Math.random() * 700;
+                bomb2Y = -1000;
+                bomb2Speed = levelFourSpeed;
+
+                coin6X = Math.random() * 700;
+                coin6Y = -1100;
+                coin6Speed = levelFourSpeed;
+
+                coin3X = Math.random() * 700;
+                coin3Y = -1200;
+                coin3Speed = levelFourSpeed;
+				  
+                dimondX = Math.random() * 700;
+                dimondY = -200;
+                dimondSpeed = levelFourSpeed;
+				  
+				coin10X = Math.random() * 700;
+                coin10Y = -1300;
+                coin10Speed = levelFourSpeed;
+				
+				coin11X = Math.random() * 700;
+                coin11Y = -1400;
+                coin11Speed = levelFourSpeed;        
+			  }
+            
+			   if (currentLevel == 5) {
+                bg.src = "Img/background5.jpeg";
+                level4.pause();
+                level5.play();
+                levelTime = 6;
+                neededCounts =15;
+
+
+                // Initialize treasure position
+                treasure.x = Math.random() * (canvas.width - treasure.width);
+                treasure.y = -100; // Start off-screen
+                treasure.visible = true; // Make treasure visible
+                treasure.speed = 2; // Set falling speed
+                treasure.isOpen = false; // Reset open state
+
+                coinX = Math.random() * 700;
+                coinY = -100
+                console.log(coinY);
+                coinSpeed = levelFiveSpeed;
+
+                coin1X = Math.random() * 700;
+                coin1Y = -500;
+                coin1Speed = levelFiveSpeed;
+
+                coin2X = Math.random() * 700;
+                coin2Y = -900;
+                coin2Speed = levelFiveSpeed;
+
+                coin3X = Math.random() * 700;
+                coin3Y = -1400;
+                coin3Speed = levelFiveSpeed;
+
+                coin9X = Math.random() * 700;
+                coin9Y = -1800;
+                coin9Speed = levelFiveSpeed;
+
+                ironBombX = Math.random() * 700;
+                ironBombY = -2200;
+
+                coin8X = Math.random() * 700;
+                coin8Y = -2600;
+                coin8Speed = levelFiveSpeed;
+                
+                ironBomb2X = Math.random() * 700;
+                ironBomb2Y = -3000;
+
+                coin5X = Math.random() * 700;
+                coin5Y = -3400;
+                coin5Speed = levelFiveSpeed;
+
+                coin4X = Math.random() * 700;
+                coin4Y = -3800;
+                coin4Speed = levelFiveSpeed;
+
+                coin6X = Math.random() * 700;
+                coin6Y = -4200;
+                coin6Speed = levelFiveSpeed;
+
+                bomb2X = Math.random() * 700;
+                bomb2Y = -4600;
+                bomb2Speed = levelFiveSpeed;
+                   
+                dimondX = Math.random() * 700;
+                dimondY = -200;
+                dimondSpeed = levelFiveSpeed;
+
+                bomb1X = Math.random() * 700;
+                bomb1Y = -5000;
+                bomb1Speed = levelFiveSpeed;
+
+                coin7X = Math.random() * 700;
+                coin7Y = -5400;
+                coin7Speed = levelFiveSpeed;
+				   
+				coin10X = Math.random() * 700;
+                coin10Y = -5800;
+                coin10Speed = levelFourSpeed;
+				
+				coin11X = Math.random() * 700;
+                coin11Y = -6200;
+                coin11Speed = levelFourSpeed;
+                   
+
+            }
+			  
+        }
+        
+        //code for distance between coins and ship
+        function shipCountcoin() {
+            var xDiff = (shipX - coinX);
+            var yDiff = (shipY - coinY);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin1() {
+            var xDiff = (shipX - coin1X);
+            var yDiff = (shipY - coin1Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin2() {
+            var xDiff = (shipX - coin2X);
+            var yDiff = (shipY - coin2Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipHitbomb1() {
+            var xDiff = (shipX - bomb1X);
+            var yDiff = (shipY - bomb1Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin3() {
+            var xDiff = (shipX - coin3X);
+            var yDiff = (shipY - coin3Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin9() {
+            var xDiff = (shipX - coin9X);
+            var yDiff = (shipY - coin9Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin6() {
+            var xDiff = (shipX - coin6X);
+            var yDiff = (shipY - coin6Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin8() {
+            var xDiff = (shipX - coin8X);
+            var yDiff = (shipY - coin8Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin4() {
+            var xDiff = (shipX - coin4X);
+            var yDiff = (shipY - coin4Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin5() {
+            var xDiff = (shipX - coin5X);
+            var yDiff = (shipY - coin5Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountcoin7() {
+            var xDiff = (shipX - coin7X);
+            var yDiff = (shipY - coin7Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+		  function shipCountcoin10() {
+            var xDiff = (shipX - coin10X);
+            var yDiff = (shipY - coin10Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+		  function shipCountcoin11() {
+            var xDiff = (shipX - coin11X);
+            var yDiff = (shipY - coin11Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountdimond() {
+            var xDiff = (shipX - dimondX);
+            var yDiff = (shipY - dimondY);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountdimond1() {
+            var xDiff = (shipX - dimondX);
+            var yDiff = (shipY - dimondY);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipCountdimond2() {
+            var xDiff = (shipX - dimondX);
+            var yDiff = (shipY - dimondY);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipHitbomb2(){
+            var xDiff = (shipX - bomb2X);
+            var yDiff = (shipY - bomb2Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipHitironBomb() {
+            var xDiff = (shipX - ironBombX);
+            var yDiff = (shipY - ironBombY);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        function shipHitironBomb2() {
+            var xDiff = (shipX - ironBomb2X);
+            var yDiff = (shipY - ironBomb2Y);
+            return Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+        }
+        
+        // Function to handle treasure interaction
+        canvas.addEventListener('click', function(event) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+
+            // Check if the player clicks on the treasure
+            // Check if treasure is clicked (only in level 5)
+            // Only allow interaction if treasure is within a certain proximity to the player
+            if (
+                currentLevel === 5 &&
+                treasure.visible &&
+                !treasure.isOpen &&
+                mouseX >= treasure.x && 
+                mouseX <= treasure.x + treasure.width &&
+                mouseY >= treasure.y &&
+                mouseY <= treasure.y + treasure.height
+            ) {
+                
+                treasure.isOpen = true; // Change state to open treasure
+                alert("Congratulations! You've caught the treasure!");
+                setTimeout(() => window.location.reload(), 1000);
+            }
+        });
+        
+        
+        // Function to start the game
+        function startGame() {
+            document.getElementById("welcomePage").style.display = "none"; // Hide welcome page
+            canvas.style.display = "block"; // Show game canvas
+            init(); // Start game initialization
+        }
+
+
+        // Get the borswer animation frame
+        var raf = window.requestAnimationFrame;
+
+        // Specify frame rate
+        var delay = 10; // milliseconds
+
+        // function to animate the objects on the screen
+        function animate() {
+            // Use setTime to time the animation
+            setTimeout(function () {
+                // Let the raf call the animate fuction
+                raf(animate);
+                // redraw the screen
+                drawScreen();
+                // Call handleLogic function
+                handleLogic();
+                update(); // Add this line to call the update function
+            }, delay);
+        }
+        animate();
+
+        function levelTimer() {
+            setTimeout(function () {
+                if (levelTime > 0) {
+                    levelTime--;
+                }
+
+                levelTimer();
+            }, 1000);
+        }
+
+        // Call the level Timer
+        levelTimer();
+    </script>
+</body>
+
+</html>
